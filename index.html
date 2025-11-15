@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achmed Abhinaya - Portfolio</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <header class="navbar fade-in-element">
+       <div class="logo">
+            ACHMED<br>ABHINAYA
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            ☰
+        </div>
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#projects">PROJECTS</a> 
+        </nav>
+    </header>
+
+    <section class="hero-section" id="home">
+        <h1 class="main-title fade-in-element">PORTFOLIO</h1>
+        
+        <div class="content-left slide-left-element">
+            <p class="see-more">qoute</p>
+            <div id="quote-container">
+                <p class="quote-text">Loading cinematic quote...</p>
+                <p class="quote-source"></p>
+            </div>
+        </div>
+
+        <div class="content-right slide-right-element">
+            <div class="film-analysis">
+                <p>The Good</p>
+            </div>
+        </div>
+
+        <div class="content-center">
+            <div class="image-stack fade-in-element">
+                <img class="main-collage-image" src="https://files.catbox.moe/byn6mj.jpg" alt="Kolase Film dan Christopher Nolan">
+                
+                <div class="center-text">
+                    ACHMED<br>ABHINAYA<br>ANUGERAH<br>R.M.
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <div class="text-container slide-left-element">
+                <div class="about-title">
+                    <span class="red-square"></span>
+                    <h2 class="slide-bottom-element">ABOUT </h2>
+                </div>
+                <p>
+                    ACHMED ABHINAYA ANUGERAH R.M. IS A VERSATILE CREATIVE 
+                    PROFESSIONAL SPECIALIZING IN FILM ANALYSIS, GRAPHIC 
+                    DESIGN, AND BACKEND ARCHITECTURE. WITH A PORTFOLIO OF 
+                    OVER 20 PROJECTS—INCLUDING PRESENTATIONS, POSTERS, 
+                    BIOGRAPHIES, AND DOCUMENTARIES—HE HAS DEVELOPED EXPERTISE 
+                    THAT SUCCESSFULLY BRIDGES ARTISTIC VISION AND TECHNICAL 
+                    PRECISION. ACHMED EXCELS AT VISUAL STORYTELLING AND DIGITAL 
+                    DESIGN, SUPPORTED BY A STRONG FOUNDATION IN BACKEND 
+                    SYSTEMS. HE APPLIES ANALYTICAL THINKING AND CREATIVE 
+                    EXECUTION TO DELIVER IMPACTFUL AND MEANINGFUL RESULTS.
+                </p>
+            </div>
+            <div class="image-container slide-right-element">
+                <img class="profile-photo fade-in-element" src="assets/IMG_20251023_232405.jpg" alt="Foto Profil Achmed Abhinaya">
+                <img class="poster-1" src="https://files.catbox.moe/24wyu5.jpg" alt="Poster Film 1">
+                <img class="poster-2" src="https://files.catbox.moe/tlwcsp.jpg" alt="Poster Film 2">
+                <img class="poster-3" src="https://files.catbox.moe/eowh42.jpg" alt="Poster Film 3">
+                <img class="poster-4" src="https://files.catbox.moe/y03xl5.jpg" alt="Poster Film 4">
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section" id="skills">
+        <h2 class="skills-title slide-bottom-element">MY SKILS</h2>
+        <div class="skills-container">
+            <div class="skill-card slide-bottom-element">
+                <h3>Film Analyzer</h3>
+                <p>
+                    A Film Analyzer is a person or tool that examines and interprets movies i
+                </p>
+            </div>
+            <div class="skill-card slide-bottom-element">
+                <h3>Graphic Designer</h3>
+                <p>
+                    A Graphic Designer is a professional who creates visual content to communicate messages using typography, images, colors, and layouts.
+                </p>
+            </div>
+            <div class="skill-card slide-bottom-element">
+                <h3>Backend Architecture</h3>
+                <p>
+                    Backend Architecture refers to the structure and organization of a system's server-side components, including databases, APIs, and server logic that power the application behind the scenes.
+                </p>
+            </div>
+        </div>
+        <div class="skill-car-background"></div>
+    </section>
+    
+    <section class="projects-section" id="projects">
+        <div class="projects-header slide-left-element">
+            <h2 class="projects-title">MY<br>PROJECT</h2>
+            <p class="projects-description">
+                Proyek ini merupakan gabungan antara analisis film, desain 
+                visual, dan arsitektur backend—mencerminkan perpaduan 
+                kemampuan analitis, artistik, dan teknis saya.
+            </p>
+        </div>
+        <div class="projects-icon-container fade-in-element"></div>
+        <div class="projects-list-container">
+            <div class="projects-list" id="projects-list">
+                </div>
+            <a href="#" class="see-more-link slide-bottom-element">see more</a>
+        </div>
+    </section>
+
+
+    <script>
+        // Data Fallback jika API gagal atau kosong
+        const fallbackProjects = [
+            { id: 1, title: 'Project Dummy 1: Fallback', image_url: 'nAN PORTO.png' },
+            { id: 2, title: 'Project Dummy 2: Fallback', image_url: 'nAN PORTO.png' },
+            { id: 3, title: 'Project Dummy 3: Fallback', image_url: 'nAN PORTO.png' }
+        ];
+        
+        // 1. Mobile Menu Toggle
+        document.getElementById('menuToggle').onclick = function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // 2. Scroll Animation (Intersection Observer API) - Disesuaikan untuk proyek dinamis
+        const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -100px 0px" };
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        const animatedElements = document.querySelectorAll('.fade-in-element, .slide-left-element, .slide-right-element, .slide-bottom-element');
+        animatedElements.forEach(element => { appearOnScroll.observe(element); });
+        
+        // 3. Dynamic Movie Quote Fetcher (Asumsi API eksternal)
+        async function fetchRandomQuote() {
+            // ... (Kode fetch quote yang sudah ada) ...
+        }
+
+        // Fungsi bantu untuk merender kartu proyek
+        function renderProjects(projects) {
+            const projectsList = document.getElementById('projects-list');
+            projectsList.innerHTML = ''; 
+
+            // Tampilkan hanya 3 proyek teratas untuk halaman utama (slice(0, 3))
+            projects.slice(0, 3).forEach((project, index) => { 
+                const card = document.createElement('div');
+                card.classList.add('project-card', 'slide-bottom-element'); 
+                card.style.transitionDelay = `${0.3 + index * 0.2}s`; 
+                
+                card.innerHTML = `
+                    <div class="project-card-image-wrapper">
+                        <img src="${project.image_url || 'nAN PORTO.png'}" alt="${project.title}" class="project-card-image-background" />
+                        <div class="project-icon-top"></div>
+                    </div>
+                    <p class="project-card-title">${project.title}</p>
+                `;
+                projectsList.appendChild(card);
+                appearOnScroll.observe(card); // Amati kartu baru untuk animasi
+            });
+        }
+
+        // 4. Dynamic Project Fetcher (Mengambil data proyek dari Node.js Backend)
+        async function fetchProjects() {
+            const projectsList = document.getElementById('projects-list');
+            const apiUrl = 'http://localhost:3000/api/projects'; 
+
+            try {
+                projectsList.innerHTML = '<p class="loading-message">Loading projects...</p>';
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP status ${response.status}`);
+                }
+                
+                const projects = await response.json(); 
+
+                if (projects.length === 0) {
+                    renderProjects(fallbackProjects);
+                } else {
+                    renderProjects(projects);
+                }
+
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+                projectsList.innerHTML = '<p class="error-message">Failed to load projects. Showing fallback data. Check your backend/CORS.</p>';
+                renderProjects(fallbackProjects);
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        // fetchRandomQuote(); 
+        fetchProjects();
+
+    </script>
+
+</body>
+</html>

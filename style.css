@@ -1,0 +1,914 @@
+/* ================================================================= */
+/* 1. DEFINISI FONT KUSTOM (Extenda 30 Deca, Aileron, & Archivo Black)*/
+/* ================================================================= */
+
+/* DEFINISI ARCHIVO BLACK DARI GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* DEFINISI EXTENDA 30 DECA - MENGGUNAKAN URL DARI PENYEDIA FONT */
+@font-face {
+    font-family: "Extenda 30 Deca";
+    src: url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.eot");
+    src: url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/fa6db9175696f50a2566ed77580e4460.svg#Extenda 30 Deca")format("svg");
+    font-weight: 400; 
+    font-style: normal;
+}
+
+/* DEFINISI AILERON - ASUMSI JALUR FONT LOKAL */
+@font-face {
+    font-family: 'Aileron';
+    src: url('fonts/Aileron-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Aileron';
+    src: url('fonts/Aileron-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* ================================================================= */
+/* 2. STYLING DASAR & RESET                                          */
+/* ================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    color: #f0e6d2; 
+    font-family: 'Aileron', sans-serif; 
+    overflow-x: hidden; 
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ================================================================= */
+/* 3. ANIMASI KEYFRAMES & TRANSISI DASAR                             */
+/* ================================================================= */
+
+/* Transisi Default untuk semua elemen yang akan dianimasikan */
+.fade-in-element, 
+.slide-left-element, 
+.slide-right-element, 
+.slide-bottom-element {
+    opacity: 0;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Keadaan Awal Slide */
+.slide-left-element {
+    transform: translateX(-50px);
+}
+.slide-right-element {
+    transform: translateX(50px);
+}
+.slide-bottom-element {
+    transform: translateY(20px);
+}
+
+/* Pemicu animasi saat class 'animate-on-scroll' ditambahkan oleh JS */
+.animate-on-scroll {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Penyesuaian Delay untuk Staggered Animation di Hero Section */
+.navbar { transition-delay: 0.1s; }
+.main-title { transition-delay: 0.3s; }
+.content-left { transition-delay: 0.6s; }
+.content-right { transition-delay: 0.6s; }
+.image-stack { transition-delay: 0.8s; }
+
+
+/* Penyesuaian Delay untuk Staggered Animation di About/Skills Section */
+
+/* Tentang: Foto (Slide-Right) akan muncul lebih dulu */
+.about-section .image-container.slide-right-element { transition-delay: 0.4s; }
+/* Tentang: Teks (Slide-Left) akan muncul setelah foto */
+.about-section .text-container.slide-left-element { transition-delay: 0.6s; }
+
+
+/* Skill: Judul muncul pertama */
+.skills-title { transition-delay: 0.2s; }
+/* Skill: Kartu skill muncul berurutan */
+.skills-container .skill-card:nth-child(1) { transition-delay: 0.4s; }
+.skills-container .skill-card:nth-child(2) { transition-delay: 0.6s; }
+.skills-container .skill-card:nth-child(3) { transition-delay: 0.8s; }
+
+
+/* ================================================================= */
+/* 4. NAVIGATION BAR (HEADER) - DESKTOP                              */
+/* ================================================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5vw 4vw; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; 
+    font-size: 0.9vw; 
+    letter-spacing: 0.1vw;
+    font-weight: bold; 
+    color: #f0e6d2;
+    background-color: rgba(0, 0, 0, 0.8); 
+    backdrop-filter: blur(5px); 
+    
+    border-bottom-left-radius: 1.5vw;
+    border-bottom-right-radius: 1.5vw;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.logo {
+    font-size: 1.0vw; 
+    font-weight: bold;
+    letter-spacing: 0.15vw;
+    line-height: 1.1; 
+}
+
+.nav-links a {
+    margin-left: 3vw;
+    font-weight: normal; 
+    text-transform: uppercase;
+}
+
+/* Tombol hamburger (sembunyikan di desktop) */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 101;
+}
+
+/* ================================================================= */
+/* 5. HERO SECTION - DESKTOP                                         */
+/* ================================================================= */
+.hero-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    padding-top: 5vh; 
+}
+
+.main-title {
+    position: absolute;
+    font-family: 'Extenda 30 Deca', sans-serif; 
+    font-size: 28vw; 
+    font-weight: 400; 
+    line-height: 0.8;
+    color: #f0e6d2; 
+    opacity: 0.9;
+    z-index: 1; 
+    text-transform: uppercase;
+    top: 40%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap; 
+}
+
+.content-left {
+    position: absolute;
+    left: 4vw; 
+    bottom: 4vw; 
+    text-align: left;
+    z-index: 2;
+}
+
+.see-more {
+    font-size: 1.6vw;
+    font-weight: bold; 
+    margin-bottom: 0.5vw;
+    letter-spacing: 0.1vw;
+    text-transform: uppercase;
+}
+
+/* STYLING QUOTE */
+.quote-text {
+    font-size: 1.2vw;
+    font-weight: normal; 
+    letter-spacing: 0.2vw;
+    text-transform: uppercase;
+    line-height: 1.5;
+    margin-bottom: 0.5vw;
+    max-width: 30vw; /* Batasi lebar teks agar tidak terlalu panjang */
+}
+
+.quote-source {
+    font-size: 0.9vw;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.content-right {
+    position: absolute;
+    right: 4vw; 
+    bottom: 4vw; 
+    text-align: right;
+    z-index: 2;
+}
+
+.film-analysis {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+.film-analysis p {
+    font-size: 1.6vw;
+    font-weight: bold;
+    letter-spacing: 0.2vw;
+    text-transform: uppercase;
+}
+
+.content-center {
+    position: relative;
+    z-index: 3; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    top: 10%; 
+}
+
+.image-stack {
+    position: relative; 
+    width: 20vw; 
+    max-width: 300px; 
+    height: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+}
+
+.main-collage-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.center-text {
+    position: absolute; 
+    top: 30%; 
+    left: 0%;
+    transform: translateX(-50%);
+    
+    font-size: 2.0vw; 
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.8; 
+    color: #f0e6d2; 
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
+}
+
+/* ================================================================= */
+/* 6. ABOUT SECTION - DESKTOP                                        */
+/* ================================================================= */
+.about-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 10vh 4vw; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 90vw; 
+}
+
+.text-container {
+    flex: 1;
+    max-width: 45%; 
+    padding-right: 5vw;
+}
+
+.about-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vw;
+}
+
+.red-square {
+    width: 1vw;
+    height: 3vw;
+    background-color: #e50914; 
+    margin-right: 1.5vw;
+    display: block;
+}
+
+.about-title h2 {
+    font-family: 'Aileron', sans-serif;
+    font-size: 4vw;
+    font-weight: bold;
+    letter-spacing: 0.2vw;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.text-container p {
+    font-family: 'Aileron', sans-serif;
+    font-size: 1.2vw;
+    line-height: 1.8;
+    text-align: justify;
+    padding-left: 2.5vw; 
+}
+
+.image-container {
+    position: relative;
+    flex: 1;
+    height: 80vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Gambar Profil Utama - BULAT */
+.profile-photo {
+    position: absolute;
+    width: 25vw;
+    max-width: 450px;
+    height: 25vw; 
+    max-height: 450px; 
+    object-fit: cover;
+    z-index: 5; 
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    transform: translate(10%, 0); 
+    border-radius: 50%; 
+}
+
+/* Penempatan Poster Film (Tidak dianimasikan untuk kesederhanaan) */
+.poster-1, .poster-2, .poster-3, .poster-4 {
+    position: absolute;
+    width: 12vw; 
+    height: auto;
+    object-fit: cover;
+    z-index: 4; 
+    opacity: 0.8;
+}
+
+.poster-1 { top: 5vh; left: 45%; transform: rotate(10deg); }
+.poster-2 { bottom: 0vh; left: 35%; transform: rotate(-5deg); }
+.poster-3 { top: 15vh; left: 20%; transform: rotate(-15deg); }
+.poster-4 { bottom: 20vh; left: 55%; transform: rotate(5deg); }
+
+/* ================================================================= */
+/* 7. SKILLS SECTION - DESKTOP                                       */
+/* ================================================================= */
+.skills-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 10vh 4vw; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.skills-title {
+    font-family: 'Archivo Black', sans-serif; 
+    font-size: 7vw; 
+    color: #f0e6d2;
+    text-transform: uppercase;
+    margin-bottom: 5vh;
+    z-index: 10;
+}
+
+.skills-container {
+    display: flex;
+    gap: 3vw; 
+    justify-content: center;
+    align-items: stretch; 
+    padding-bottom: 10vh;
+    z-index: 10;
+}
+
+.skill-card {
+    width: 20vw;
+    min-width: 250px;
+    flex: 1; 
+    background-color: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.5vw;
+    padding: 2vw;
+    text-align: center; 
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.skill-card h3 {
+    font-family: 'Aileron', sans-serif;
+    font-size: 1.8vw;
+    margin-bottom: 1.5vw;
+    color: #f0e6d2;
+}
+
+.skill-card p {
+    font-size: 1.1vw;
+    line-height: 1.6;
+    color: #ccc;
+    text-align: center;
+}
+
+.skill-car-background {
+    position: absolute;
+    bottom: -15vh; 
+    right: -5vw;
+    width: 80vw;
+    height: 80vh;
+    /* Ganti URL ini jika path gambar mobil Anda berbeda */
+    background-image: url('assets/lamborghini.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: 0.15;
+    z-index: 1;
+    transform: rotate(-5deg);
+}
+
+.skills-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 90%, rgba(229, 9, 20, 0.1) 0%, transparent 40%);
+    z-index: 0;
+}
+
+/* ================================================================= */
+/* 8. MEDIA QUERY (MOBILE - Max Width: 768px)                        */
+/* ================================================================= */
+@media (max-width: 768px) {
+    
+    /* NAVIGASI MOBILE */
+    .navbar {
+        padding: 4vw 6vw; 
+        border-bottom-left-radius: 4vw;
+        border-bottom-right-radius: 4vw;
+    }
+
+    .logo {
+        font-size: 4.5vw; 
+    }
+
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-bottom-left-radius: 4vw;
+        border-bottom-right-radius: 4vw;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-links a {
+        margin: 10px 0;
+        font-size: 4vw;
+    }
+
+    .menu-toggle {
+        display: block; 
+        font-size: 6vw;
+    }
+
+    .nav-links.active {
+        display: flex; 
+    }
+    
+    /* HERO SECTION MOBILE */
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 15vh;
+        padding-bottom: 5vh;
+    }
+    
+    .main-title {
+        font-size: 55vw; 
+        top: 30%;
+        transform: translate(-50%, -30%);
+    }
+
+    .content-center {
+        top: 0;
+        margin-top: 20vh;
+    }
+
+    .image-stack {
+        width: 60vw;
+        max-width: none;
+    }
+
+    .center-text {
+        font-size: 6vw; 
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+    }
+    
+    .content-left, .content-right {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 90%;
+        text-align: center;
+        margin: 4vh auto;
+    }
+    
+    .see-more {
+        font-size: 5vw;
+    }
+
+    /* STYLING QUOTE MOBILE */
+    .quote-text {
+        font-size: 3.8vw;
+        letter-spacing: 0.1vw;
+        margin-bottom: 1.5vw;
+        max-width: 100%;
+    }
+    
+    .quote-source {
+        font-size: 3.2vw;
+    }
+
+    .film-analysis p {
+        font-size: 3.5vw;
+    }
+
+    /* ABOUT SECTION MOBILE */
+    .about-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 10vh 6vw;
+    }
+
+    .about-content {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .text-container {
+        max-width: 100%;
+        padding-right: 0;
+        /* DIUBAH: Menurunkan teks */
+        margin-top: 10vh; 
+        order: 2; 
+    }
+
+    .about-title h2 {
+        font-size: 8vw;
+    }
+
+    .red-square {
+        width: 2.5vw;
+        height: 6vw;
+        margin-right: 3vw;
+    }
+
+    .text-container p {
+        font-size: 4vw;
+        padding-left: 0;
+    }
+    
+    .image-container {
+        height: 60vh;
+        width: 100%;
+        margin-top: 5vh;
+        order: 1; /* DIUBAH: Foto duluan */
+    }
+    
+    .profile-photo {
+        /* DIUBAH: Memperbesar foto */
+        width: 70vw; 
+        height: 70vw; 
+        transform: translate(0, 0); 
+        position: relative;
+    }
+
+    .poster-1, .poster-2, .poster-3, .poster-4 {
+        display: none;
+    }
+
+    /* SKILLS SECTION MOBILE */
+    .skills-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 10vh 6vw;
+    }
+
+    .skills-title {
+        font-size: 12vw; 
+        margin-bottom: 5vh;
+    }
+    
+    .skills-container {
+        flex-direction: column; 
+        gap: 5vw;
+        padding-bottom: 5vh;
+    }
+
+    .skill-card {
+        width: 100%; 
+        min-width: 0;
+        padding: 5vw;
+        border-radius: 5vw;
+    }
+
+    .skill-card h3 {
+        font-size: 5.5vw;
+        margin-bottom: 3vw;
+    }
+
+    .skill-card p {
+        font-size: 3.5vw;
+    }
+    
+    .skill-car-background {
+        display: none; 
+    }
+}
+/* ... (Bagian CSS lama - pastikan tidak ada perubahan) ... */
+
+/* ================================================================= */
+/* 8. PROJECTS SECTION - DESKTOP (BARU)                              */
+/* ================================================================= */
+.projects-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 10vh 4vw; 
+    display: grid;
+    /* Mengatur tata letak seperti gambar yang diunggah */
+    grid-template-columns: 1fr 1fr; /* Dua kolom */
+    grid-template-rows: auto 1fr; /* Baris header dan baris konten */
+    gap: 3vw; 
+    align-items: start;
+    overflow: hidden; 
+}
+
+.projects-header {
+    grid-column: 1 / 2; /* Kolom 1 */
+    grid-row: 1 / 2;
+    padding-right: 5vw;
+}
+
+.projects-title {
+    font-family: 'Archivo Black', sans-serif; 
+    font-size: 8vw; 
+    line-height: 0.8;
+    color: #f0e6d2;
+    text-transform: uppercase;
+    margin-bottom: 3vh;
+}
+
+.projects-description {
+    font-family: 'Aileron', sans-serif;
+    font-size: 1.2vw;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+.projects-icon-container {
+    grid-column: 2 / 3; /* Kolom 2 */
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+/* Menggunakan gambar yang diunggah untuk icon di header */
+.projects-icon {
+    width: 30vw; /* Ukuran icon */
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
+    /* Potong bagian icon saja dari gambar yang diunggah */
+    clip-path: polygon(48% 0, 100% 0, 100% 45%, 45% 45%); 
+    /* CATATAN: Karena gambar nAN PORTO.png memiliki latar belakang, 
+        menggunakan gambar yang sudah dipotong (hanya ikon) akan lebih baik.
+        Sebagai alternatif, saya akan meniru ikon tersebut di sini. */
+    display: none; /* Sembunyikan gambar asli, kita buat ulang tata letak icon di CSS jika diperlukan */
+}
+
+/* Mengganti dengan tata letak ikon yang serupa dengan gambar */
+.projects-icon-container {
+    position: relative;
+    /* Ganti gambar di sini jika Anda memiliki aset ikon terpisah */
+    background-image: url('nAN PORTO.png');
+    background-size: 60% auto;
+    background-position: center right;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+
+.projects-list-container {
+    grid-column: 1 / 3; /* Merentang di dua kolom */
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 'see more' di kanan */
+    width: 100%;
+    margin-top: 5vh;
+}
+
+.projects-list {
+    display: flex;
+    gap: 3vw;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.project-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    background-color: #0d0d0d; 
+    border-radius: 1vw;
+    padding: 1.5vw;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+}
+
+.project-card-image-wrapper {
+    position: relative;
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.project-card-image-background {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 0.5vw;
+    /* Meniru gaya rounded-box dari gambar */
+    /* Menggunakan nAN PORTO.png sebagai latar belakang card */
+    content: url('nAN PORTO.png'); 
+    transform: scale(1.5) translateY(-20px); /* Sesuaikan untuk fokus pada area visual */
+}
+
+.project-icon-top {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 1.5vw;
+    height: 1.5vw;
+    background-color: #f0e6d2; 
+    border-radius: 50%;
+    border: 3px solid #e50914; 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.project-card-title {
+    font-family: 'Aileron', sans-serif;
+    font-size: 1.1vw;
+    color: #f0e6d2;
+    text-align: left;
+    margin-left: 0.5vw;
+    line-height: 1.4;
+}
+
+.see-more-link {
+    font-size: 1.2vw;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    color: #f0e6d2;
+    text-decoration: underline;
+    opacity: 0.7;
+    margin-top: 2vh;
+    transition: opacity 0.3s;
+}
+
+.see-more-link:hover {
+    opacity: 1;
+}
+
+/* MEDIA QUERY MOBILE untuk PROJECTS SECTION */
+@media (max-width: 768px) {
+    .projects-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 10vh 6vw;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+        gap: 5vw;
+        text-align: center;
+    }
+    
+    .projects-header {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        padding-right: 0;
+    }
+    
+    .projects-title {
+        font-size: 12vw;
+    }
+    
+    .projects-description {
+        font-size: 4vw;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .projects-icon-container {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        justify-content: center;
+        background-size: 90% auto;
+        background-position: center top;
+        height: 30vh;
+    }
+
+    .projects-list-container {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        margin-top: 0;
+        align-items: center;
+    }
+    
+    .projects-list {
+        flex-direction: column;
+        gap: 5vw;
+        width: 100%;
+    }
+    
+    .project-card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        padding: 5vw;
+        border-radius: 5vw;
+    }
+
+    .project-card-image-wrapper {
+        height: 30vh;
+        margin-bottom: 3vw;
+    }
+
+    .project-card-title {
+        font-size: 4vw;
+        margin-left: 2vw;
+    }
+
+    .project-icon-top {
+        width: 4vw;
+        height: 4vw;
+    }
+
+    .see-more-link {
+        font-size: 4vw;
+    }
+}

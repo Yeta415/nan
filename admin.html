@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Glassmorphism Animated</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* TEMA GLASSMORPHISM + ANIMASI */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.15); /* Semi-transparan */
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --primary-color: #007bff; /* Biru */
+            --primary-light: #4d96c9;
+            --text-light: #f8f9fa; /* Teks Putih */
+            --danger-color: #dc3545;
+            --shadow-strong: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* 1. ANIMASI LATAR BELAKANG */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Latar belakang dinamis */
+            background-image: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            background-size: cover;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* 2. KONTEN GLASSMORPHISM */
+        .container { 
+            width: 90%;
+            max-width: 1000px; 
+            padding: 40px; 
+            border-radius: 20px; 
+            background: var(--glass-bg);
+            box-shadow: var(--shadow-strong); 
+            backdrop-filter: blur(10px); /* Efek Kaca */
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            /* Animasi masuk kontainer */
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        /* 3. TIPOGRAFI */
+        h1 {
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 { 
+            color: var(--text-light); 
+            margin-top: 30px;
+            padding-bottom: 10px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        /* 4. FORM ANIMASI */
+        .form-section {
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+        
+        .form-section input[type="text"], 
+        .form-section textarea, 
+        .form-section input[type="file"] {
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            border: 1px solid var(--glass-border); 
+            border-radius: 8px; 
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.1); 
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-section input:focus, .form-section textarea:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+        
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        label, p {
+            color: var(--text-light);
+        }
+        
+        /* 5. BUTTON DENGAN EFEK 3D HOVER */
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            color: white; 
+            margin-right: 10px; 
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .btn-primary { 
+            background-color: var(--primary-color); 
+        }
+        
+        .btn-danger { 
+            background-color: var(--danger-color); 
+        }
+
+        .btn:hover { 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px); 
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 6. LIST PROYEK DENGAN ANIMASI MASUK */
+        .project-list { 
+            margin-top: 20px; 
+        }
+        
+        .project-item { 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border-radius: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0; 
+            transform: translateY(20px);
+            /* Transisi untuk animasi masuk dan keluar */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        
+        .project-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .project-info {
+            display: flex; 
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .project-item img { 
+            width: 80px; 
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px; 
+            border-radius: 50%; 
+            border: 3px solid var(--primary-light);
+            transition: transform 0.3s;
+        }
+        
+        .project-details strong {
+            display: block;
+            font-size: 1.1em;
+            color: var(--primary-light);
+            margin-bottom: 3px;
+        }
+        
+        .project-details small {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Keyframes */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
+        
+        #current-image-url {
+            font-style: italic;
+            color: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Project Dashboard 🚀</h1>
+        
+        <div class="form-section">
+            <h2 id="form-title">➕ Tambah Proyek Baru</h2>
+            <form id="project-form">
+                <input type="hidden" id="project-id" name="id">
+                
+                <div class="form-group">
+                    <input type="text" id="title" name="title" placeholder="Judul Proyek" required>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="description" name="description" placeholder="Deskripsi Singkat Proyek" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <p>Gambar Saat Ini: <span id="current-image-url">None</span></p>
+                    <input type="hidden" id="existing_image_url" name="existing_image_url">
+                    
+                    <label for="image">Upload Gambar Baru (Otomatis ke Cloudinary):</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submit-btn">Tambah Proyek</button>
+                <button type="button" class="btn btn-danger" id="cancel-btn" style="display:none;">Batal Edit</button>
+            </form>
+        </div>
+
+        <hr style="border: 0; height: 1px; background: var(--glass-border); margin: 30px 0;">
+
+        <h2>📋 Daftar Semua Proyek</h2>
+        <div class="project-list" id="project-list">
+            <p style="text-align:center; color: var(--primary-light);">Memuat data proyek...</p>
+        </div>
+    </div>
+
+    <script>
+        // *** BAGIAN JAVASCRIPT: CRUD DAN LOGIKA ANIMASI ***
+        const API_URL = 'http://localhost:3000/api/projects'; // Endpoint Baca
+        const ADMIN_API_URL = 'http://localhost:3000/api/admin/projects'; // Endpoint Admin (CRUD)
+        const projectList = document.getElementById('project-list');
+        const projectForm = document.getElementById('project-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const formTitle = document.getElementById('form-title');
+
+        async function fetchProjects() {
+            try {
+                // Tampilkan Loading State
+                projectList.innerHTML = `<p style="text-align:center; color: var(--primary-light);">Memuat data proyek...</p>`;
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API request failed');
+                const projects = await response.json();
+                renderProjects(projects);
+            } catch (error) {
+                projectList.innerHTML = `<p style="color:var(--danger-color); font-weight: 500;">❌ Gagal mengambil proyek: ${error.message}. Pastikan Backend berjalan di port 3000.</p>`;
+            }
+        }
+
+        // Fungsi yang mengimplementasikan Staggered Entry Animation
+        function renderProjects(projects) {
+            projectList.innerHTML = '';
+            if (projects.length === 0) {
+                projectList.innerHTML = '<p style="text-align:center; color: rgba(255, 255, 255, 0.7);">Belum ada proyek yang ditambahkan.</p>';
+                return;
+            }
+
+            projects.forEach((project, index) => {
+                const item = document.createElement('div');
+                item.className = 'project-item';
+                // Set delay untuk animasi staggered entry
+                item.style.transitionDelay = `${index * 0.08}s`; 
+                
+                item.innerHTML = `
+                    <div class="project-info">
+                        <img src="${project.image_url || 'https://via.placeholder.com/80?text=No+Image'}" alt="${project.title}">
+                        <div class="project-details">
+                            <strong>${project.title}</strong>
+                            <small>${project.description ? project.description.substring(0, 80) + '...' : ''}</small>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="editProject(${project.id}, '${project.title}', \`${project.description}\`, '${project.image_url}')">✏️ Edit</button>
+                        <button class="btn btn-danger" onclick="deleteProject(${project.id})">🗑️ Delete</button>
+                    </div>
+                `;
+                projectList.appendChild(item);
+                
+                // Memicu animasi setelah DOM dirender
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, 50); 
+            });
+        }
+        
+        // Fungsi untuk mengisi form saat Edit (termasuk animasi pulse)
+        window.editProject = function(id, title, description, imageUrl) {
+            document.getElementById('project-id').value = id;
+            document.getElementById('title').value = title;
+            document.getElementById('description').value = description;
+            document.getElementById('existing_image_url').value = imageUrl;
+            document.getElementById('current-image-url').textContent = imageUrl ? 'Loaded' : 'None';
+            
+            formTitle.innerHTML = '✏️ Edit Proyek (ID: ' + id + ')';
+            submitBtn.textContent = 'Simpan Perubahan';
+            cancelBtn.style.display = 'inline-block';
+            document.getElementById('image').required = false; 
+            
+            // Animasi scroll dan pulse
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            const formSection = document.querySelector('.form-section');
+            formSection.style.animation = 'pulse 1s 1';
+            setTimeout(() => {
+                formSection.style.animation = 'none';
+            }, 1000);
+        }
+
+        // Fungsi reset form (dengan animasi scale out/in)
+        function resetForm() {
+            projectForm.style.opacity = 0;
+            projectForm.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                projectForm.reset();
+                document.getElementById('project-id').value = '';
+                document.getElementById('existing_image_url').value = '';
+                document.getElementById('current-image-url').textContent = 'None';
+                formTitle.innerHTML = '➕ Tambah Proyek Baru';
+                submitBtn.textContent = 'Tambah Proyek';
+                cancelBtn.style.display = 'none';
+                document.getElementById('image').required = true; 
+
+                projectForm.style.opacity = 1;
+                projectForm.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        cancelBtn.onclick = resetForm;
+
+
+        // Handler Submit Form (CREATE atau UPDATE)
+        projectForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Memproses...'; // Loading state
+
+            const id = document.getElementById('project-id').value;
+            const formData = new FormData(projectForm);
+            
+            const isEditing = !!id;
+            const method = isEditing ? 'PUT' : 'POST';
+            const url = isEditing ? `${ADMIN_API_URL}/${id}` : ADMIN_API_URL;
+
+            if (!isEditing && !formData.get('image').name) {
+                alert("Harap upload gambar untuk proyek baru.");
+                submitBtn.disabled = false;
+                submitBtn.textContent = isEditing ? 'Simpan Perubahan' : 'Tambah Proyek';
+                return;
+            } else if (isEditing && !formData.get('image').name) {
+                formData.delete('image');
+            }
+
+            try {
+                const response = await fetch(url, { method: method, body: formData });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert('Operasi Gagal: ' + (data.error || 'Server error'));
+                } else {
+                    alert(`✅ Proyek berhasil ${isEditing ? 'diperbarui' : 'ditambahkan'}!`);
+                    resetForm();
+                    fetchProjects(); 
+                }
+
+            } catch (error) {
+                alert('Terjadi kesalahan jaringan atau server.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = isEditing ? 'Simpan Perubahan' : 'Tambah Proyek';
+            }
+        });
+
+
+        // Fungsi DELETE Project (dengan animasi slide-out)
+        window.deleteProject = async function(id) {
+            if (!confirm('Anda yakin ingin menghapus proyek ini? Tindakan ini tidak dapat dibatalkan.')) return;
+
+            // Cari elemen proyek di DOM
+            const itemToDelete = Array.from(projectList.children).find(item => {
+                const editButton = item.querySelector('.actions .btn-primary');
+                // Ekstraksi ID dari onclick attribute
+                const match = editButton?.getAttribute('onclick')?.match(/editProject\((\d+)/);
+                return match && parseInt(match[1]) === id;
+            });
+            
+            // Pemicu animasi slide-out
+            if (itemToDelete) {
+                itemToDelete.style.transform = 'translateX(-100%)';
+                itemToDelete.style.opacity = 0;
+            }
+
+            try {
+                const response = await fetch(`${ADMIN_API_URL}/${id}`, { method: 'DELETE' });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert('Gagal menghapus: ' + (data.error || 'Server error'));
+                    // Kembalikan item jika gagal
+                    if (itemToDelete) {
+                        itemToDelete.style.transform = 'translateX(0)';
+                        itemToDelete.style.opacity = 1;
+                    }
+                } else {
+                    // Hapus dari DOM setelah animasi selesai
+                    setTimeout(() => {
+                        if (itemToDelete) itemToDelete.remove();
+                        alert('🗑️ Proyek berhasil dihapus!');
+                        fetchProjects(); 
+                    }, 500);
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan jaringan atau server saat menghapus.');
+            }
+        }
+
+        fetchProjects();
+    </script>
+</body>
+</html>
