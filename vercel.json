@@ -1,40 +1,36 @@
 {
-  "version": 2,
+  "version": 3,
   "builds": [
     {
       "src": "server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "assets/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "style.css",
-      "use": "@vercel/static"
     }
+    // Aset statis seperti *.html, assets/**, dan style.css
+    // secara otomatis dideteksi dan disajikan oleh Vercel.
+    // Jika Anda ingin mendefinisikannya, gunakan "@vercel/static-build" 
+    // atau biarkan Vercel menanganinya secara default (direkomendasikan).
+    // Untuk kesederhanaan, bagian statis dihilangkan (kecuali jika ada kebutuhan spesifik).
   ],
   "routes": [
+    // Rute untuk API Node.js Anda
     {
       "src": "/api/(.*)",
       "dest": "/server.js"
     },
+    // Rute Statis untuk halaman tertentu
     {
       "src": "/admin",
       "dest": "/admin.html"
     },
+    // Rute Statis untuk halaman utama
     {
       "src": "/",
       "dest": "/index.html"
     },
+    // Rute fallback untuk aset statis lainnya
     {
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  }
+  ]
 }
