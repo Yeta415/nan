@@ -7,25 +7,15 @@
     }
   ],
   "routes": [
-
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
- 
-    {
-      "src": "/admin",
-      "dest": "/admin.html"
-    },
-
-    {
-      "src": "/",
-      "dest": "/index.html"
-    },
-
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "server.js"
     }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
+    "CLOUDINARY_API_KEY": "@cloudinary_api_key",
+    "CLOUDINARY_API_SECRET": "@cloudinary_api_secret"
+  }
 }
